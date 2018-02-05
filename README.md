@@ -9,7 +9,7 @@ https://github.com/toni-moreno/snmpcollector
 
 ## snmpColConn
 
-The snmpColConn.py file implements a class which can be used to interact with SNMP Collector via its REST API.
+The snmpColConn.py file implements a Python class which can be used to interact with SNMP Collector via its REST API.
 
 This file can be used independently with any Python project that wishes to interact with SNMP Collector.  In this instance it is used by mib2SnmpCol.py, which gives a good example of how it can be used.
 
@@ -71,6 +71,14 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |-p|Argument||Yes|Password for username|
 |-o|Argument||Yes|OID of MIB tree location to begin parsing|
 |-m|Switch|No|No|If added will prefix the SNMP 'module' to measurement names.|
+
+
+For example you culd use it like this:
+
+    python3 mib2SnmpCol.py -o OPENBSD-PF-MIB::pfCounters -s 192.168.240.82 -u admin -p password
+    
+    
+Provided everything goes ok you should see something like this:
 
 
 
