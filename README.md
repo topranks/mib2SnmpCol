@@ -84,7 +84,7 @@ A typical example would be like this:
     python3 mib2SnmpCol.py -o OPENBSD-PF-MIB::pfCounters -s 192.168.240.82 -u admin -p password
     
     
-Provided everything goes ok you should it begin to add elements as follows:
+Provided everything goes ok you should see output on the screen as it adds elements:
 ```
 topranks@pc:~/mib2SnmpCol$ python3 mib2SnmpCol.py -o OPENBSD-BASE-MIB::pfMIBObjects -s 192.168.240.82 -u admin -p admin
 Adding Influx Measurement pfLabelTable...
