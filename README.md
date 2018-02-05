@@ -27,7 +27,7 @@ To install the dependencies on a debian-based system you can run:
     sudo apt-get install snmp libsnmp-dev
     
 
-You can run 'mib2c' in a shell afterwards to verify the command has been installed.
+You can run 'mib2c' in a shell afterwards to verify the command is available.
 
 ## Usage & Arguments
 
