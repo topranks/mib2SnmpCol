@@ -35,7 +35,7 @@ MIB files need to be installed on the local system so that the NET-SNMP tools an
 
 1.  Download required MIB files to /usr/share/mibs/$some_subfolder
 
-2.  Add a line to /etc/snmp/snmp.conf as follows to tell it to search this subfolder for MIB files:
+2.  Add a line to /etc/snmp/snmp.conf as follows, to tell the system to include this path when looking for MIBs:
 
         mibdirs +/usr/share/mibs/$some_subfolder
     
