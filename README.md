@@ -81,7 +81,7 @@ On a Debian-based system the standard IANA and IETF MIBs can be added as follows
 
     sudo apt-get install snmp-mibs-downloader
     
-### Custom MIBs
+#### Custom MIBs
 
 Custom MIBs can also be added.  A brief example on Debian would be as follows:
 
