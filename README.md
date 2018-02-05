@@ -1,10 +1,14 @@
+# Introduction
+
+Toni Moreno's SNMP Collector is an excellent tool focused on polling devices via SNMP, and recording the resulting data in InfluxDB.
+
+More info on SNMP Collector is here:  https://github.com/toni-moreno/snmpcollector
+
+More info on InfluxDB is here:  https://www.influxdata.com/
+
 # mib2SnmpCol
 
-mib2SnmpCol is a simple Python3 script that parses a MIB or part of a MIB tree and adds all OIDs within as SNMP Metrics in SNMP Collector.
-
-For more information on the excellent SNMP Collector project please see its homepage:
-
-https://github.com/toni-moreno/snmpcollector
+mib2SnmpCol is a basic Python3 script that parses an SNMP MIB, or part of a MIB tree, and adds all metrics it finds within to SNMP Collector.  It also adds "Influx Measurement" groups for the metrics it finds, corresponding to the table they come from, or just the immediate SNMP parenet element in the case of scalar values.
 
 
 ## snmpColConn
@@ -73,14 +77,41 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |-m|Switch|No|No|If added will prefix the SNMP 'module' to measurement names.|
 
 
-For example you culd use it like this:
+
+A typical example would be like this:
 
     python3 mib2SnmpCol.py -o OPENBSD-PF-MIB::pfCounters -s 192.168.240.82 -u admin -p password
     
     
-Provided everything goes ok you should see something like this:
+Provided everything goes ok you should it begin to add elements as follows:
+```
+topranks@pc:~/mib2SnmpCol$ python3 mib2SnmpCol.py -o OPENBSD-BASE-MIB::pfMIBObjects -s 192.168.240.82 -u admin -p admin
+Adding Influx Measurement pfLabelTable...
+   Metric pfLabelEvals added OK.
+   Metric pfLabelOutPkts added OK.
+   Metric pfLabelName added OK.
+   Metric pfLabelOutBytes added OK.
+   Metric pfLabelInBytes added OK.
+   Metric pfLabelInPkts added OK.
+   Metric pfLabelPkts added OK.
+   Metric pfLabelIndex added OK.
+   Metric pfLabelTotalStates added OK.
+   Metric pfLabelBytes added OK.
+pfLabelTable measurement added.
+
+Adding Influx Measurement pfTblTable...
+   Metric pfTblStatsCleared added OK.
+   Metric pfTblInPassBytes added OK.
+   Metric pfTblOutMatchPkts added OK.
+   Metric pfTblOutXPassPkts added OK.
+```
+(output cut).
 
 
+## Issues / Improvements
 
+The code is far from perfect.  Especially when it comes to SNMP Tables some shortcuts are taken which may not always work.
 
+- The system assumes that the element at .1 under the Table OID is the Index for the table.  It will add this as the 'IndexOID' in the Influx Measurement definition.
 
+- If the element at .2 under a Table OID is of type OCTETSTRING then it will automatically set 'IsTag' to true for the corresponding SNMP Metric.  This generally helps, as often the element at this location is an interface name, description etc.  However it may not always be the case, so some manual validation could be required afterwards.
