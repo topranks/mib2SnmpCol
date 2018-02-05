@@ -75,7 +75,15 @@ Adding Influx Measurement pfTblTable...
 
 ## MIBs
 
-The tool can only add elements from MIBs that are correctly installed on the local system in advance.  A brief example on Debian would be as follows:
+The tool can only add elements from MIBs that are correctly installed on the local system in advance.  
+
+On a Debian-based system the standard IANA and IETF MIBs can be added as follows:
+
+    sudo apt-get install snmp-mibs-downloader
+    
+### Custom MIBs
+
+Custom MIBs can also be added.  A brief example on Debian would be as follows:
 
 1.  Download required MIB files to /usr/share/mibs/$some_subfolder
 
