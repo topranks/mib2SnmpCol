@@ -34,8 +34,10 @@ class SnmpColConn:
             sys.exit(1)
 
     def add(self, elementType, data):
+        # Adds an element to SNMP Collector
+
         # Check if the element already exists:
-        itExists=self.exists(['ID'], elementType)
+        itExists=self.exists(data['ID'], elementType)
 
         # Add or ammend element [POST or PUT]:
         if(itExists):
@@ -55,6 +57,8 @@ class SnmpColConn:
 
 
     def exists(self, elementName, elementType):
+        # Returns 0 or 1 based on if element already exists in SNMP Collector.
+
         url="http://{0}:{1}/api/cfg/{2}/{3}".format(self.server, self.port, elementType, elementName)
         r = requests.get(url, headers=self.headers, cookies=self.cookies)
         if r.status_code==200:
@@ -64,6 +68,8 @@ class SnmpColConn:
 
 
     def get(self, elementName, elementType):
+        # Returns JSON of existing element within SNMP Collector
+
         url="http://{0}:{1}/api/cfg/{2}/{3}".format(self.server, self.port, elementType, elementName)
         r = requests.get(url, headers=self.headers, cookies=self.cookies)
         if r.status_code==200:
@@ -73,6 +79,8 @@ class SnmpColConn:
 
                     
     def delete(self, elementName, elementType):
+        # Deletes existing element from SNMP Collector    
+    
         url="http://{0}:{1}/api/cfg/{2}/{3}".format(self.server, self.port, elementType, elementName)
         r = requests.delete(url, headers=self.headers, cookies=self.cookies)
         return r.status_code

@@ -33,6 +33,7 @@ def begin():
 
 def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
     # Adds an Influx Measurement object to SNMP Collector
+    print("Adding Influx Measurement {0}...".format(groupName))
 
     # Add all the metrics to the DB:
     groupMembers, splitOid = addSnmpMetrics(snmpColConn, groupName, groupData, isTable)
@@ -46,8 +47,11 @@ def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
         "Description": ""
     }
 
+    print(isTable)
+
     # Add and modify data if the group is a table:
     if isTable:
+        print("this is a table")
         # Assume Index OID is at .1 in table tree:
         splitOid[-1]="1"
         del splitOid[0]
@@ -63,8 +67,8 @@ def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
         measurementData['IndexAsValue']=True
 
     # Create "Influx Measurement" in SNMPCollector for the group:
-    print("Adding Influx Measurement {0}".format(measurement))
     snmpColConn.add("measurement", measurementData)
+    print("{0} measurement added.\n".format(groupName))
 
 
 def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
@@ -77,7 +81,7 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
         # Get normalised type field for element:
         metricType=normalizeElement(groupData[metric]['type'])
         # Record element name for addition to group later:
-        groupMembers.append({"ID": metric, "Report": "1"})
+        groupMembers.append({"ID": metric, "Report": 1})
 
         oid=groupData[metric]['oid']
         isCounter=(metricType=='COUNTER32' or metricType=='COUNTER64')
@@ -109,8 +113,8 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
         }
 
         # Write the metric to SNMP Collector:
-        print("Adding SNMP Metric {0}".format(metric))
         snmpColConn.add("metric", metricData)
+        print("   Metric {0} added OK.".format(metric))
     return groupMembers, splitOid
         
 
