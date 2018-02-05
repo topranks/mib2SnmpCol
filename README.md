@@ -75,7 +75,7 @@ Adding Influx Measurement pfTblTable...
 
 ## MIBs
 
-In order for the tool to work MIB files need to be installed on the local system, so the NET-SNMP tools and libraries can find them.  This process can vary depending on the operating system you are using.  A brief example on Debian would be as follows:
+The tool can only add elements from MIBs that are correctly installed on the local system in advance.  A brief example on Debian would be as follows:
 
 1.  Download required MIB files to /usr/share/mibs/$some_subfolder
 
