@@ -29,6 +29,17 @@ To install the dependencies on a debian-based system you can run:
 
 You can run 'mib2c' in a shell afterwards to verify the command is available.
 
+## Download
+
+Download the tool using git as follows:
+
+    git clone --depth 1 https://github.com/topranks/mib2SnmpCol.git
+
+Move into the newly created directory to use it:
+
+    cd mib2SnmpCol
+
+
 ## Usage & Arguments
 
 mib2SnmpCol can be run using python3 only.  From the command line it takes several arguments:
