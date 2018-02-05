@@ -29,9 +29,53 @@ To install the dependencies on a debian-based system you can run:
 
 You can run 'mib2c' in a shell afterwards to verify the command has been installed.
 
+## Usage & Arguments
+
+mib2SnmpCol can be run using python3 only.  From the command line it takes several arguments:
+
+|Argument|Name|Type|Default|Required|Description|
+|---------|----|----|-------|----------|----------|
+|-s|Server|Argument||Yes|Hostname or IP of the SNMP Collector instance.|
+|-t|TCP Port|Argument|8090|No|Port the SNMP Collector instance is running on.|
+|-u|Username|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
+|-p|Password|Argument||Yes|Password for username.|
+|-o|OID|Argument||Yes|OID of MIB tree location to begin parsing.|
+|-m|Module|Switch|No|No|Include to prefix measurement names with the SNMP 'module' they come from.|
+
+
+A typical example would be like this:
+
+    python3 mib2SnmpCol.py -o OPENBSD-PF-MIB::pfCounters -s 192.168.240.82 -u admin -p password
+    
+
+Provided everything goes ok you should see output on the screen as it adds elements:
+```
+topranks@pc:~/mib2SnmpCol$ python3 mib2SnmpCol.py -o OPENBSD-BASE-MIB::pfMIBObjects -s 192.168.240.82 -u admin -p admin
+Adding Influx Measurement pfLabelTable...
+   Metric pfLabelEvals added OK.
+   Metric pfLabelOutPkts added OK.
+   Metric pfLabelName added OK.
+   Metric pfLabelOutBytes added OK.
+   Metric pfLabelInBytes added OK.
+   Metric pfLabelInPkts added OK.
+   Metric pfLabelPkts added OK.
+   Metric pfLabelIndex added OK.
+   Metric pfLabelTotalStates added OK.
+   Metric pfLabelBytes added OK.
+pfLabelTable measurement added.
+
+Adding Influx Measurement pfTblTable...
+   Metric pfTblStatsCleared added OK.
+   Metric pfTblInPassBytes added OK.
+   Metric pfTblOutMatchPkts added OK.
+   Metric pfTblOutXPassPkts added OK.
+```
+(output cut).
+
+
 ## MIBs
 
-MIB files need to be installed on the local system so that the NET-SNMP tools and libraries can find them.  This process can vary depending on the operating system you are using.  A brief guide on Debian would be as follows:
+In order for the tool to work MIB files need to be installed on the local system, so the NET-SNMP tools and libraries can find them.  This process can vary depending on the operating system you are using.  A brief example on Debian would be as follows:
 
 1.  Download required MIB files to /usr/share/mibs/$some_subfolder
 
@@ -61,52 +105,7 @@ If I have sucessfully added the MIBs to my system I should be able to verify wit
     .1.3.6.1.4.1.30155
 
 
-This tool can only add SNMP elements that the local system knows about, so make sure to check with 'snmptranslate' that everything works before continuing.
-
-
-## Usage & Arguments
-
-mib2SnmpCol can be run using python3 only.  From the command line it takes several arguments:
-
-|Argument|Name|Type|Default|Required|Description|
-|---------|----|----|-------|----------|----------|
-|-s|Server|Argument||Yes|Hostname or IP of the SNMP Collector instance.|
-|-t|TCP Port|Argument|8090|No|Port the SNMP Collector instance is running on.|
-|-u|Username|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
-|-p|Password|Argument||Yes|Password for username.|
-|-o|OID|Argument||Yes|OID of MIB tree location to begin parsing.|
-|-m|Module|Switch|No|No|Include to prefix measurement names with the SNMP 'module' they come from.|
-
-
-
-A typical example would be like this:
-
-    python3 mib2SnmpCol.py -o OPENBSD-PF-MIB::pfCounters -s 192.168.240.82 -u admin -p password
-    
-    
-Provided everything goes ok you should see output on the screen as it adds elements:
-```
-topranks@pc:~/mib2SnmpCol$ python3 mib2SnmpCol.py -o OPENBSD-BASE-MIB::pfMIBObjects -s 192.168.240.82 -u admin -p admin
-Adding Influx Measurement pfLabelTable...
-   Metric pfLabelEvals added OK.
-   Metric pfLabelOutPkts added OK.
-   Metric pfLabelName added OK.
-   Metric pfLabelOutBytes added OK.
-   Metric pfLabelInBytes added OK.
-   Metric pfLabelInPkts added OK.
-   Metric pfLabelPkts added OK.
-   Metric pfLabelIndex added OK.
-   Metric pfLabelTotalStates added OK.
-   Metric pfLabelBytes added OK.
-pfLabelTable measurement added.
-
-Adding Influx Measurement pfTblTable...
-   Metric pfTblStatsCleared added OK.
-   Metric pfTblInPassBytes added OK.
-   Metric pfTblOutMatchPkts added OK.
-   Metric pfTblOutXPassPkts added OK.
-```
-(output cut).
+This tool can only add SNMP elements that the local system knows about, so make sure to check with 'snmptranslate' that everything works before using the tool.
 
 
 ## Issues / Improvements
@@ -116,3 +115,4 @@ The code is far from perfect.  Especially when it comes to SNMP Tables some shor
 - The system assumes that the element at .1 under the Table OID is the Index for the table.  It will add this as the 'IndexOID' in the Influx Measurement definition.
 
 - If the element at .2 under a Table OID is of type OCTETSTRING then it will automatically set 'IsTag' to true for the corresponding SNMP Metric.  This generally helps, as often the element at this location is an interface name, description etc.  However it may not always be the case, so some manual validation could be required afterwards.
+
