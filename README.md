@@ -15,7 +15,7 @@ mib2SnmpCol is a basic Python3 script that parses an SNMP MIB, or part of a MIB 
 
 snmpColConn.py implements a Python class which can be used to interact with SNMP Collector via its REST API.
 
-It can be used independently with any Python project that wants to interact with SNMP Collector.  mib2SnmpCol.py gives a good example of how it can be used.
+It can be used independently with any Python project that wants to interact with SNMP Collector.  mib2SnmpCol.py loads it in this project and provides a good example of how it can be used.
 
 
 ## Dependencies
