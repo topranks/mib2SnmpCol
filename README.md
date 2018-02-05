@@ -63,11 +63,10 @@ mib2SnmpCol will only be able to add SNMP elements that are found in the local s
 
 mib2SnmpCol can be run using python3 only.  From the command line it takes several arguments:
 
--
-Argument|Type|Default|Required|Description
----------|----|-------|----------
--s|Argument||Yes|Hostname or IP of the SNMP Collector instnace.
--t|Argument|8090|No|TCP Port the SNMP Collector is running on.
--u|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.
+|Argument|Type|Default|Required|Description|
+|---------|----|-------|----------|----------|
+|-s|Argument||Yes|Hostname or IP of the SNMP Collector instnace.|
+|-t|Argument|8090|No|TCP Port the SNMP Collector is running on.|
+|-u|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
 
 
