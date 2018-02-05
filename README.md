@@ -24,7 +24,7 @@ I can't pretend that this code is very elegent.  Instead of doing everything wit
 
 To install the dependencies on a debian-based system you can run:
 
-    sudo apt-get install snmp libsnmp-dev
+    sudo apt-get install snmp libsnmp-dev libsnmp-perl
     
 
 You can run 'mib2c' in a shell afterwards to verify the command is available.
