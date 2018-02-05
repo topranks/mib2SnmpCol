@@ -20,15 +20,14 @@ This file can be used independently with any Python project that wishes to inter
 
 ## Dependencies
 
-I can't pretend that this effort is very elegent.  Instead of doing everything within the confines of Python the code makes an  external call to 'mib2c'.  This is part of the NET-SNMP project and can be used to parse a MIB tree that the system has installed and output text or code referencing the elements it finds.
+I can't pretend that this code is very elegent.  Instead of doing everything within the confines of Python it spawns an external call to 'mib2c'.  This is part of the NET-SNMP project and can be used to iterate over MIB definitions, outputing text or code based on the contents of a supplied conf file.
 
-To install on a debian-based system you can run:
+To install the dependencies on a debian-based system you can run:
 
     sudo apt-get install snmp libsnmp-dev
     
 
 You can run 'mib2c' in a shell afterwards to verify the command has been installed.
-
 
 ## MIBs
 
