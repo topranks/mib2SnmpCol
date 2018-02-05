@@ -39,7 +39,7 @@ MIB files need to be installed on the local system so that the NET-SNMP tools an
 
         mibdirs +/usr/share/mibs/$some_subfolder
     
-3.  For each of the MIB files inside that folder you wish to include add another line to /etc/snmp/snmp.conf as follows:
+3.  For each of the MIB files inside that folder add another line to /etc/snmp/snmp.conf as follows:
 
         mibs +MIB-NAME-1
         mibs +MIB-NAME-2
