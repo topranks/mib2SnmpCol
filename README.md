@@ -97,7 +97,7 @@ Custom MIBs can also be added.  A brief example on Debian would be as follows:
         mibs +MIB-NAME-2
         mibs +MIB-NAME-3
         
-If your MIB files have ".txt" or ".my" extensions do not include that part in snmp.conf.  Just include the file (MIB) name without the extenstion.
+If your MIB files have ".txt" or ".my" extensions do not include that part in snmp.conf.  Just include the file (MIB) name without any extenstion.
     
 
 So for instance if I had added MIBs for 'OpenBSD' I might end up with something like this in /etc/snmp/snmp.conf:
