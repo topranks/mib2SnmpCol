@@ -68,14 +68,14 @@ This tool can only add SNMP elements that the local system knows about, so make 
 
 mib2SnmpCol can be run using python3 only.  From the command line it takes several arguments:
 
-|Argument|Type|Default|Required|Description|
-|---------|----|-------|----------|----------|
-|-s|Argument||Yes|Hostname or IP of the SNMP Collector instance.|
-|-t|Argument|8090|No|TCP Port the SNMP Collector instance is running on.|
-|-u|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
-|-p|Argument||Yes|Password for username|
-|-o|Argument||Yes|OID of MIB tree location to begin parsing|
-|-m|Switch|No|No|If added will prefix the SNMP 'module' to measurement names.|
+|Argument|Name|Type|Default|Required|Description|
+|---------|----|----|-------|----------|----------|
+|-s|Server|Argument||Yes|Hostname or IP of the SNMP Collector instance.|
+|-t|TCP Port|Argument|8090|No|Port the SNMP Collector instance is running on.|
+|-u|Username|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
+|-p|Password|Argument||Yes|Password for username|
+|-o|OID|Argument||Yes|OID of MIB tree location to begin parsing|
+|-m|Module|Switch|No|No|If used measurement names will be prefixed by the SNMP 'module' they come from.|
 
 
 
