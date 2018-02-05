@@ -120,7 +120,7 @@ mib2SnmpCol can only add SNMP elements that the local system knows about, so mak
 
 The code is far from perfect.  Especially when it comes to SNMP Tables some shortcuts are taken which may not always work.
 
-- The system assumes that the element at .1 under the Table OID is the Index for the table.  It will add this as the 'IndexOID' in the Influx Measurement definition.
+- The tool assumes that the element at .1 under the Table OID is the Index for the table.  It will add this as the 'IndexOID' in the Influx Measurement definition.
 
 - If the element at .2 under a Table OID is of type OCTETSTRING then it will automatically set 'IsTag' to true for the corresponding SNMP Metric.  This generally helps, as often the element at this location is an interface name, description etc.  However it may not always be the case, so some manual validation could be required afterwards.
 
