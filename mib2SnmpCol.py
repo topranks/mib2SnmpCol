@@ -65,7 +65,7 @@ def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
 
     # Create "Influx Measurement" in SNMPCollector for the group:
     snmpColConn.add("measurement", measurementData)
-    print("{0} measurement added.\n".format(groupName))
+    print("{0} measurement added OK.\n".format(groupName))
 
 
 def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
