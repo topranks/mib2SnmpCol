@@ -48,7 +48,7 @@ class SnmpColConn:
         if(r.status_code==200):
             time.sleep(0.2)
         else:
-            print("Somethng went wrong adding device {0}, status code: {1} .".format(data['ID'], r.status_code))
+            print("Somethng went wrong adding element {0}, status code: {1} .".format(data['ID'], r.status_code))
             print(r.json)
             print(r.text)
             sys.exit(1)
