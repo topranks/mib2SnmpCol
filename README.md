@@ -105,7 +105,7 @@ If I have sucessfully added the MIBs to my system I should be able to verify wit
     .1.3.6.1.4.1.30155
 
 
-This tool can only add SNMP elements that the local system knows about, so make sure to check with 'snmptranslate' that everything works before using the tool.
+mib2SnmpCol can only add SNMP elements that the local system knows about, so make sure to check with 'snmptranslate' that everything works before trying to use it.
 
 
 ## Issues / Improvements
