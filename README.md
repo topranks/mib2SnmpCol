@@ -61,7 +61,7 @@ If I have sucessfully added the MIBs to my system I should be able to verify wit
     .1.3.6.1.4.1.30155
 
 
-mib2SnmpCol will only be able to add SNMP elements that are found in the local systems MIB tree and can be iterated over with mib2c.
+This tool can only add SNMP elements that the local system knows about, so make sure to check with 'snmptranslate' that everything works before continuing.
 
 
 ## Usage & Arguments
