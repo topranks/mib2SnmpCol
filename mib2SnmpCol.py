@@ -77,6 +77,11 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
     for metric in groupData:
         # Get normalised type field for element:
         metricType=normalizeElement(groupData[metric]['type'])
+        # If the metric is one of the few types (like 'Opaque')
+        # that SNMP Collector doesn't support just skip it:
+        if(metricType)==None:
+            continue
+
         # Record element name for addition to group later:
         groupMembers.append({"ID": metric, "Report": 1})
 
@@ -111,7 +116,7 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
 
         # Write the metric to SNMP Collector:
         snmpColConn.add("metric", metricData)
-        print("   Metric {0} added OK.".format(metric))
+        print("   Metric {0} [{1}] added OK.".format(metric, metricType))
     return groupMembers, splitOid
         
 
