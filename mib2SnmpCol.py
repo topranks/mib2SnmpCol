@@ -47,11 +47,8 @@ def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
         "Description": ""
     }
 
-    print(isTable)
-
     # Add and modify data if the group is a table:
     if isTable:
-        print("this is a table")
         # Assume Index OID is at .1 in table tree:
         splitOid[-1]="1"
         del splitOid[0]
