@@ -2,9 +2,9 @@
 
 Toni Moreno's SNMP Collector is an excellent tool focused on polling devices via SNMP, and recording the resulting data in InfluxDB.
 
-More info on SNMP Collector is here:  https://github.com/toni-moreno/snmpcollector
+SNMP Collector can be found here:  https://github.com/toni-moreno/snmpcollector
 
-More info on InfluxDB is here:  https://www.influxdata.com/
+InfluxDB can be found here:  https://www.influxdata.com/
 
 # mib2SnmpCol
 
