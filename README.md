@@ -11,7 +11,7 @@ More info on InfluxDB is here:  https://www.influxdata.com/
 mib2SnmpCol is a basic Python3 script that parses an SNMP MIB, or part of a MIB tree, and adds all metrics it finds within to SNMP Collector.  It also adds "Influx Measurement" groups for the metrics it finds, corresponding to the table they come from, or just the immediate SNMP parenet element in the case of scalar values.
 
 
-## snmpColConn
+# snmpColConn
 
 The snmpColConn.py file implements a Python class which can be used to interact with SNMP Collector via its REST API.
 
