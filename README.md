@@ -13,9 +13,9 @@ InfluxDB can be found here:  https://www.influxdata.com/
 
 ### snmpColConn
 
-snmpColConn.py implements a Python class which can be used to interact with SNMP Collector via its REST API.
+The included snmpColConn.py implements a Python class which can be used to interact with SNMP Collector via its REST API.
 
-It provides the core functionality to talk to SNMP Collector that mib2SnmpCol.py uses.  snmpColConn.py can be used independently with any Python project that needs to interact with SNMP Collector.  This project provides a good example of how it can be used.
+snmpColConn.py can be used independently with any Python project that needs to interact with SNMP Collector.  This project provides a good example of how it can be used.
 
 
 # Instalation & Usage
