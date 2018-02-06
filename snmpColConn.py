@@ -26,11 +26,17 @@ class SnmpColConn:
         creds = {"username": self.username, "password": self.password}
         headers = {'Content-Type':'application/json'}
 
-        r = requests.post(url, json=creds, headers=headers)
+        try:
+            r = requests.post(url, json=creds, headers=headers)
+        except Exception as e:
+            print("Error connecting to SNMP Collector server {0}:\n".format(self.server))
+            print("{0}\n".format(e))
+            sys.exit(1)
         if r.status_code == 200:
             self.cookies=r.cookies
         else:
-            print("Error logging on to server, return code {0}\n".format(r.status_code))
+            print("Error logging on to SNMP Collector, return code {0}.\n".format(r.status_code))
+            print("Is your username and password correct?\n")
             sys.exit(1)
 
     def add(self, elementType, data):
