@@ -11,7 +11,7 @@ snmpColConn.py implements a Python class which can be used to interact with SNMP
 It provides the core functionality to talk to SNMP Collector that mib2SnmpCol.py uses.  snmpColConn.py can be used independently with any Python project that needs to interact with SNMP Collector.  mib2SnmpCol.py provides a good example of how it can be used.
 
 
-# Background
+## Background
 
 Toni Moreno's SNMP Collector is an excellent tool focused on polling devices via SNMP, and recording the resulting data in InfluxDB.
 
