@@ -51,7 +51,7 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |-u|Username|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
 |-p|Password|Argument||Yes|Password for username.|
 |-o|OID|Argument||Yes|OID of MIB tree location to begin parsing.|
-|-m|Module|Switch|No|No|Include to prefix measurement names with the SNMP 'module' they come from.|
+|-m|Module|Switch|No|No|Prefix measurement names with their SNMP 'module' name.|
 
 
 A typical example would be like this:
