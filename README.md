@@ -2,7 +2,7 @@
 
 mib2SnmpCol is a basic Python3 tool that parses an SNMP MIB, or part of a MIB tree, and adds all metrics it finds within to SNMP Collector.  It also adds "Influx Measurement" groups for the metrics it finds, corresponding to the table they come from, or the immediate SNMP parent element in the case of scalar values.
 
-It can be used on any part of a MIB tree / OID structure, from a single table up to an entire MIB, importing all the elements it encounters.
+It can be used on any part of a MIB tree / OID structure, from a single value or table up to an entire MIB, importing all the elements it encounters.
 
 ## snmpColConn
 
