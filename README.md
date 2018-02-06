@@ -1,4 +1,17 @@
-# Introduction
+# mib2SnmpCol
+
+mib2SnmpCol is a basic Python3 tool that parses an SNMP MIB, or part of a MIB tree, and adds all metrics it finds within to SNMP Collector.  It also adds "Influx Measurement" groups for the metrics it finds, corresponding to the table they come from, or the immediate SNMP parent element in the case of scalar values.
+
+It can be used on any part of a MIB tree / OID structure, from a single table up to an entire MIB, importing all the elements it encounters.
+
+## snmpColConn
+
+snmpColConn.py implements a Python class which can be used to interact with SNMP Collector via its REST API.
+
+It provides the core functionality to talk to SNMP Collector that mib2SnmpCol.py uses.  snmpColConn.py can be used independently with any Python project that needs to interact with SNMP Collector.  mib2SnmpCol.py provides a good example of how it can be used.
+
+
+# Background
 
 Toni Moreno's SNMP Collector is an excellent tool focused on polling devices via SNMP, and recording the resulting data in InfluxDB.
 
@@ -6,17 +19,8 @@ SNMP Collector can be found here:  https://github.com/toni-moreno/snmpcollector
 
 InfluxDB can be found here:  https://www.influxdata.com/
 
-# mib2SnmpCol
 
-mib2SnmpCol is a basic Python3 script that parses an SNMP MIB, or part of a MIB tree, and adds all metrics it finds within to SNMP Collector.  It also adds "Influx Measurement" groups for the metrics it finds, corresponding to the table they come from, or the immediate SNMP parent element in the case of scalar values.
-
-
-# snmpColConn
-
-snmpColConn.py implements a Python class which can be used to interact with SNMP Collector via its REST API.
-
-It can be used independently with any Python project that wants to interact with SNMP Collector.  mib2SnmpCol.py loads it in this project and provides a good example of how it can be used.
-
+# Instalation & Usage
 
 ## Dependencies
 
@@ -40,7 +44,7 @@ Move into the newly created directory to use it:
     cd mib2SnmpCol
 
 
-## Usage & Arguments
+## Command-Line Arguments
 
 mib2SnmpCol can be run using python3 only.  From the command line it takes several arguments:
 
@@ -53,6 +57,8 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |-o|OID|Argument||Yes|OID of MIB tree location to begin parsing.|
 |-m|Module|Switch|No|No|Prefix measurement names with their SNMP 'module' name.|
 
+
+## Usage
 
 A typical example would be like this:
 
