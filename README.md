@@ -1,6 +1,6 @@
 # Introduction
 
-Toni Moreno's SNMP Collector is an excellent tool focused on polling devices via SNMP, and recording the resulting data in InfluxDB.
+Toni Moreno's [https://github.com/toni-moreno/snmpcollector](SNMP Collector) is an excellent tool focused on polling devices via SNMP, and recording the resulting data in [https://www.influxdata.com/](InfluxDB).
 
 mib2SnmpCol is a basic Python3 tool that parses an SNMP MIB, or part of a MIB tree, and adds all metrics it finds within to SNMP Collector.  It also adds "Influx Measurement" groups for the metrics it finds, corresponding to the table they come from, or the immediate SNMP parent element in the case of scalar values.
 
