@@ -116,7 +116,7 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
 
         # Write the metric to SNMP Collector:
         snmpColConn.add("metric", metricData)
-        print("   Metric {0} [{1}] added OK.".format(metric, metricType))
+        print("   Metric {0} ({1}) added OK.".format(metric, metricType.lower()))
     return groupMembers, splitOid
         
 
