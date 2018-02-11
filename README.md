@@ -88,6 +88,12 @@ Adding Influx Measurement pfTblTable...
 (output cut).
 
 
+Each group can then be seen under 'Influx Measurements' in SNMP Collector:
+
+/mib2SnmpCol
+
+
+
 ## MIBs
 
 The tool can only add elements from MIBs that are correctly installed on the local system in advance.  
