@@ -26,10 +26,10 @@ def begin():
     snmpColConn=SnmpColConn(args.server, args.tcpport, args.username, args.password)
    
     for table in tables:
-        addSnmpMeasurement(snmpColConn, table, tables[table], True)
+        addSnmpMeasurement(snmpColConn, str(table).replace('-', '_'), tables[table], True)
  
     for scalarGroup in scalars:
-        addSnmpMeasurement(snmpColConn, scalarGroup, scalars[scalarGroup], False)
+        addSnmpMeasurement(snmpColConn, str(scalarGroup).replace('-', '_'), scalars[scalarGroup], False)
 
 def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
     # Adds an Influx Measurement object to SNMP Collector
