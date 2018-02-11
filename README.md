@@ -90,7 +90,7 @@ Adding Influx Measurement pfTblTable...
 
 Each group can then be seen under 'Influx Measurements' in SNMP Collector:
 
-/mib2SnmpCol
+![SNMPCollector](/screenshot.png?raw=true)
 
 
 
