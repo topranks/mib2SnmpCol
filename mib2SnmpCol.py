@@ -139,9 +139,10 @@ def parseText(textData, appendMod):
 
         if appendMod: 
             parentName=lineData[4].replace("-MIB", "") + "_" + lineData[0]
+            entryName=lineData[4].replace("-MIB", "") + "_" + lineData[1]
         else:
             parentName=lineData[0]
-        entryName=lineData[1]
+            entryName=lineData[1]
         entryType=lineData[2]
         entryOID=lineData[3]
 
