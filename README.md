@@ -84,8 +84,9 @@ Adding Influx Measurement pfTblTable...
    Metric pfTblInPassBytes added OK.
    Metric pfTblOutMatchPkts added OK.
    Metric pfTblOutXPassPkts added OK.
-```
-(output cut).
+   <--- output cut --->
+   ```
+
 
 
 Each group can then be seen under 'Influx Measurements' in SNMP Collector:
