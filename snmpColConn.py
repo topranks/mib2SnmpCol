@@ -78,7 +78,7 @@ class SnmpColConn:
         url="http://{0}:{1}/api/cfg/{2}/{3}".format(self.server, self.port, elementType, elementName)
         r = requests.get(url, headers=self.headers, cookies=self.cookies)
         if r.status_code==200:
-            return r.text
+            return r.json()
         else:
             return ""
 
