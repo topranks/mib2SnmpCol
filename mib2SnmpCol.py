@@ -86,7 +86,7 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
         groupMembers.append({"ID": metric, "Report": 1})
 
         oid=groupData[metric]['oid']
-        isCounter=(metricType=='COUNTER32' or metricType=='COUNTER64')
+        isCounter=(metricType=='COUNTERXX')
         isTag=False
 
         if isTable:
@@ -158,9 +158,9 @@ def parseText(textData, appendMod):
 def normalizeElement(elementName):
     # Converts Object Type names from mib2c to SNMPCollector format
     if(elementName=='ASN_COUNTER'):
-        return "COUNTER32"
+        return "COUNTERXX"
     elif(elementName=='ASN_COUNTER64'):
-        return "COUNTER64"
+        return "COUNTERXX"
     elif(elementName=='ASN_GAUGE'):
         return "Gauge32"
     elif(elementName=='ASN_INTEGER'):
