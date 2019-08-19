@@ -58,7 +58,7 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |--prefix_meas|Prefix Measurement|Argument|No|No|Prefix arbitary text at the start of measurement names.|
 |--prefix_metric|Prefix Metric|Argument|No|No|Prefix arbitary text at the start of metric names.
 
-* Gets around bug described here by forcing conversion to FLOAT as setting as INT not working:
+\* Gets around bug described here by forcing conversion to FLOAT as setting as INT not working:
 https://github.com/toni-moreno/snmpcollector/issues/384
 
 
