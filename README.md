@@ -55,8 +55,8 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |-o|OID|Argument|Yes||OID of MIB tree location to begin parsing.|
 |--fixint|Fix Int|Switch|No|No|Set 'conversion' to 0 for numeric fields in SNMP Collector \*|
 |--getrate|Get Rate|Switch|No|No|Enable 'Get Rate' delta calculation in SNMP Collector for Counter types.|
-|--prefix_meas|Prefix Measurement|Argument|No|No|Prefix arbitary text at the start of measurement names.|
-|--prefix_metric|Prefix Metric|Argument|No|No|Prefix arbitary text at the start of metric names.
+|--prefix_meas|Prefix Measurement|Argument||No|Prefix arbitary text at the start of measurement names.|
+|--prefix_metric|Prefix Metric|Argument||No|Prefix arbitary text at the start of metric names.
 
 \* Gets around bug described here by forcing conversion to FLOAT as setting as INT not working:
 https://github.com/toni-moreno/snmpcollector/issues/384
