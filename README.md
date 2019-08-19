@@ -52,7 +52,7 @@ mib2SnmpCol can be run using python3 only.  From the command line it takes sever
 |-t|TCP Port|Argument|8090|No|Port the SNMP Collector instance is running on.|
 |-u|Username|Argument||Yes|Username with rights to use SNMP Collector HTTP interface.|
 |-p|Password|Argument||Yes|Password for username.|
-|-o|OID|Argument|Yes|OID of MIB tree location to begin parsing.|
+|-o|OID|Argument|Yes||OID of MIB tree location to begin parsing.|
 |--fixint|Fix Int|Switch|No|No|Set 'conversion' to 0 for numeric fields in SNMP Collector \*|
 |--getrate|Get Rate|Switch|No|No|Enable 'Get Rate' delta calculation in SNMP Collector for Counter types.|
 |--prefix_meas|Prefix Measurement|Argument|No|No|Prefix arbitary text at the start of measurement names.|
