@@ -152,4 +152,4 @@ The code is far from perfect.  Especially when it comes to SNMP Tables some shor
 
 - If the element at .2 under a Table OID is of type OCTETSTRING then it will automatically set 'IsTag' to true for the corresponding SNMP Metric.  This generally helps, as often the element at this location is an interface name, description etc.  However it may not always be the case, so some manual validation could be required afterwards.
 
-- All COUNTER metric types are configured to write "cooked" delta values to InfluxDB.  In other words "GetRate" is set to true for all counters.  A flag could be added to make this optional and record the absolute counter value instead.
+
