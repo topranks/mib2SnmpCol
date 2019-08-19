@@ -11,25 +11,37 @@ import argparse
 import sys
 from snmpColConn import SnmpColConn
 
-def begin():
-    args=getArgs()
+parser = argparse.ArgumentParser(description='SNMP Collector Device Adder')
+parser.add_argument('-s', '--server', help ='IP or hostname of SNMPCollector Server', required=True)
+parser.add_argument('-t', '--tcpport', help='TCP Port of SNMP Collector HTTP endpoint (default 8090)', type=int, default=8090)
+parser.add_argument('-u', '--username', help='SNMP Collector web interface username', type=str, required=True)
+parser.add_argument('-p', '--password', help='SNMP Collector web interface password', type=str, required=True)
+parser.add_argument('-o', '--oid', help='SNMP OID, e.g. IF-MIB::interfaces', type=str, required=True)
+parser.add_argument('--prefix_meas', help='Set to prefix influx measurement name with some string', type=str, default="")
+parser.add_argument('--prefix_metric', help='Set to prefix influx field names with some string', type=str, default="")
+parser.add_argument('--fixint', help='Render INT types as FLOAT conversions to avoid InfluxDB bug in v0.8 of SNMP Collector.', action='store_true')
+parser.add_argument('--getrate', help='Set all COUNTER types to calculate deltas before pushing to InfluxDB (set getRate=True)', action='store_true')
+args = parser.parse_args()
+
+def main():
 
     # Get text output from mib2c of parsed Mib files:
     tableText=runMib2C("tables.conf", args.oid)
     scalarText=runMib2C("scalars.conf", args.oid)
 
     # Iterate over text to get structured dicts:
-    tables=parseText(tableText, args.module)
-    scalars=parseText(scalarText, args.module)
+    tables=parseText(tableText)
+    scalars=parseText(scalarText)
 
     # Create connection to the SNMP Collector server:
     snmpColConn=SnmpColConn(args.server, args.tcpport, args.username, args.password)
-   
+
     for table in tables:
         addSnmpMeasurement(snmpColConn, str(table).replace('-', '_'), tables[table], True)
- 
+
     for scalarGroup in scalars:
         addSnmpMeasurement(snmpColConn, str(scalarGroup).replace('-', '_'), scalars[scalarGroup], False)
+
 
 def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
     # Adds an Influx Measurement object to SNMP Collector
@@ -69,7 +81,7 @@ def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
 
 
 def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
-    # Adds a series of SNMP Metrics to SNMP Collector, returns 
+    # Adds a series of SNMP Metrics to SNMP Collector, returns
     # a list of the member names.
     groupMembers=[]
     splitOid=[]
@@ -86,7 +98,8 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
         groupMembers.append({"ID": metric, "Report": 1})
 
         oid=groupData[metric]['oid']
-        isCounter=(metricType=='COUNTERXX')
+        getRate = (metricType=='COUNTERXX' and args.getrate)
+        isInteger = not (metricType=='IpAddress' or metricType=='OID' or metricType=='OCTETSTRING')
         isTag=False
 
         if isTable:
@@ -107,18 +120,22 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
             "FieldName": metric,
             "DataSrcType": metricType,
             "IsTag": isTag,
-            "GetRate": isCounter,
+            "GetRate": getRate,
             "Description": "",
             "BaseOID": oid,
             "Scale": 0,
             "Shift": 0
         }
 
+        if args.fixint:
+            metricData['conversion'] = 0
+            metricData['Conversion'] = 0
+
         # Write the metric to SNMP Collector:
         snmpColConn.add("metric", metricData)
         print("   Metric {0} ({1}) added OK.".format(metric, metricType.lower()))
     return groupMembers, splitOid
-        
+
 
 def runMib2C(mib2c_conf_file, oid):
     # Run external 'mib2c' command to parse MIB tree tables to TXT file:
@@ -132,17 +149,13 @@ def runMib2C(mib2c_conf_file, oid):
         return command.stdout.decode('utf-8')
 
 
-def parseText(textData, appendMod):
+def parseText(textData):
     output={}
     for line in textData.splitlines():
         lineData=line.split()
 
-        if appendMod: 
-            parentName=lineData[4].replace("-MIB", "") + "_" + lineData[0]
-            entryName=lineData[4].replace("-MIB", "") + "_" + lineData[1]
-        else:
-            parentName=lineData[0]
-            entryName=lineData[1]
+        parentName = args.prefix_meas + lineData[0]
+        entryName = args.prefix_metric + lineData[1]
         entryType=lineData[2]
         entryOID=lineData[3]
 
@@ -175,19 +188,7 @@ def normalizeElement(elementName):
         return "TimeTicks"
     elif(elementName=='ASN_UNSIGNED'):
         return "Unsigned32"
-        
-
-def getArgs():
-    parser = argparse.ArgumentParser(description='SNMP Collector Device Adder')
-    parser.add_argument('-s', '--server', help ='IP or hostname of SNMPCollector Server', required=True)
-    parser.add_argument('-t', '--tcpport', help='TCP Port of SNMP Collector HTTP endpoint (default 8090)', type=int, default=8090)
-    parser.add_argument('-u', '--username', help='SNMP Collector web interface username', type=str, required=True)
-    parser.add_argument('-p', '--password', help='SNMP Collector web interface password', type=str, required=True)
-    parser.add_argument('-o', '--oid', help='SNMP OID, e.g. IF-MIB::interfaces', type=str, required=True)
-    parser.add_argument('-m', '--module', help='Set to prefix influx measurement name with the mib module name', action='store_true')
-    return parser.parse_args()
 
 
 if __name__=="__main__":
-    begin()
-
+    main()
