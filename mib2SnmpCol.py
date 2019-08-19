@@ -154,8 +154,15 @@ def parseText(textData):
     for line in textData.splitlines():
         lineData=line.split()
 
-        parentName = args.prefix_meas + lineData[0]
-        entryName = args.prefix_metric + lineData[1]
+        if args.prefix_meas == "":
+            parentName = lineData[0]
+        else:
+            parentName = args.prefix_meas + lineData[0][0].upper() + lineData[0][1:]
+        if args.prefix_metric == "":
+            entryName = lineData[1]
+        else:
+            entryName = args.prefix_meas + lineData[1][0].upper() + lineData[1][1:]
+
         entryType=lineData[2]
         entryOID=lineData[3]
 
