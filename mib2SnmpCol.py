@@ -21,6 +21,7 @@ parser.add_argument('--prefix_meas', help='Set to prefix influx measurement name
 parser.add_argument('--prefix_metric', help='Set to prefix influx field names with some string', type=str, default="")
 parser.add_argument('--fixint', help='Render INT types as FLOAT conversions to avoid InfluxDB bug in v0.8 of SNMP Collector.', action='store_true')
 parser.add_argument('--getrate', help='Set all COUNTER types to calculate deltas before pushing to InfluxDB (set getRate=True)', action='store_true')
+parser.add_argument('--overwrite', help='Overwrite existing SNMP metrics, by default will skip', action='store_true')
 args = parser.parse_args()
 
 def main():
@@ -35,10 +36,10 @@ def main():
 
     # Create connection to the SNMP Collector server:
     snmpColConn=SnmpColConn(args.server, args.tcpport, args.username, args.password)
-
+   
     for table in tables:
         addSnmpMeasurement(snmpColConn, str(table).replace('-', '_'), tables[table], True)
-
+ 
     for scalarGroup in scalars:
         addSnmpMeasurement(snmpColConn, str(scalarGroup).replace('-', '_'), scalars[scalarGroup], False)
 
@@ -76,12 +77,12 @@ def addSnmpMeasurement(snmpColConn, groupName, groupData, isTable):
         measurementData['IndexAsValue']=True
 
     # Create "Influx Measurement" in SNMPCollector for the group:
-    snmpColConn.add("measurement", measurementData)
+    snmpColConn.add("measurement", measurementData, True)
     print("{0} measurement added OK.\n".format(groupName))
 
 
 def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
-    # Adds a series of SNMP Metrics to SNMP Collector, returns
+    # Adds a series of SNMP Metrics to SNMP Collector, returns 
     # a list of the member names.
     groupMembers=[]
     splitOid=[]
@@ -132,10 +133,11 @@ def addSnmpMetrics(snmpColConn, groupName, groupData, isTable):
             metricData['Conversion'] = 0
 
         # Write the metric to SNMP Collector:
-        snmpColConn.add("metric", metricData)
-        print("   Metric {0} ({1}) added OK.".format(metric, metricType.lower()))
+        returnCode = snmpColConn.add("metric", metricData, args.overwrite)
+        if returnCode != 0:
+            print("   Metric {0} ({1}) added OK.".format(metric, metricType.lower()))
     return groupMembers, splitOid
-
+        
 
 def runMib2C(mib2c_conf_file, oid):
     # Run external 'mib2c' command to parse MIB tree tables to TXT file:
@@ -195,7 +197,7 @@ def normalizeElement(elementName):
         return "TimeTicks"
     elif(elementName=='ASN_UNSIGNED'):
         return "Unsigned32"
-
+        
 
 if __name__=="__main__":
     main()
