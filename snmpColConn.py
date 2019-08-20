@@ -39,22 +39,27 @@ class SnmpColConn:
             print("Is your username and password correct?\n")
             sys.exit(1)
 
-    def add(self, elementType, data):
+    def add(self, elementType, data, overwrite):
         # Adds an element to SNMP Collector
 
         # Check if the element already exists:
         itExists=self.exists(data['ID'], elementType)
 
         # Add or ammend element [POST or PUT]:
-        if(itExists):
+        if(itExists and overwrite):
             url="http://{0}:{1}/api/cfg/{2}/{3}".format(self.server, self.port, elementType, data['ID'])
             r = requests.put(url, json=data, headers=self.headers, cookies=self.cookies)
-        else:
+            returnCode = 1
+        elif(not itExists):
             url="http://{0}:{1}/api/cfg/{2}".format(self.server, self.port, elementType)
             r = requests.post(url, json=data, headers=self.headers, cookies=self.cookies)
+            returnCode = 2
+        else:
+            return 0
 
         if(r.status_code==200):
             time.sleep(0.2)
+            return returnCode
         else:
             print("Somethng went wrong adding element {0}, status code: {1} .".format(data['ID'], r.status_code))
             print(r.text)
@@ -89,4 +94,3 @@ class SnmpColConn:
         url="http://{0}:{1}/api/cfg/{2}/{3}".format(self.server, self.port, elementType, elementName)
         r = requests.delete(url, headers=self.headers, cookies=self.cookies)
         return r.status_code
-
