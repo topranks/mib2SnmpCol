@@ -163,7 +163,7 @@ def parseText(textData):
         if args.prefix_metric == "":
             entryName = lineData[1]
         else:
-            entryName = args.prefix_meas + lineData[1][0].upper() + lineData[1][1:]
+            entryName = args.prefix_metric + lineData[1][0].upper() + lineData[1][1:]
 
         entryType=lineData[2]
         entryOID=lineData[3]
